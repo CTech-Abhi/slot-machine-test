@@ -52,8 +52,8 @@ window.addEventListener("resize", resize);
 resize();
 
 function resize() {
-  var w = window.innerWidth;
-  var h = window.innerHeight;
+  let w = window.innerWidth;
+  let h = window.innerHeight;
 
   engine.stage.scale.x = w / engineProps.canvasW;
   engine.stage.scale.y = h / engineProps.canvasH;
