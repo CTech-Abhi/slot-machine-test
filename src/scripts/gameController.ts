@@ -9,11 +9,14 @@ export class gameController extends PIXI.Container {
   private reels: reel[] = [];
   private symbolSize = 160;
   private winDisplay: PIXI.Text;
+  private stopDisplay: PIXI.Text;
+  private winDisplayMaxHeight = 350;
 
   constructor() {
     super();
     this.gameData = Model.getInstance();
     this.winDisplay = this.createWinText();
+    this.stopDisplay = this.createStopDisplay();
   }
 
   public init() {
@@ -24,7 +27,7 @@ export class gameController extends PIXI.Container {
 
   private createSpinButton() {
     const mainButton = PIXI.Sprite.from("images/spin_button.png");
-    mainButton.x = 200;
+    mainButton.x = 100;
     mainButton.y = 500;
     mainButton.scale.set(0.6);
     mainButton.interactive = true;
@@ -41,7 +44,22 @@ export class gameController extends PIXI.Container {
     });
     const text = new PIXI.Text("GOOD LUCK !!", style);
     this.addChild(text);
-    text.x = 550;
+    text.x = 600;
+    text.y = 500;
+    return text;
+  }
+
+  private createStopDisplay() {
+    const style = new PIXI.TextStyle({
+      wordWrap: true,
+      wordWrapWidth: 200,
+    });
+    const text = new PIXI.Text(
+      "STOP POSITIONS :- \n\n" + this.gameData.reelstops,
+      style
+    );
+    this.addChild(text);
+    text.x = 350;
     text.y = 500;
     return text;
   }
@@ -60,13 +78,15 @@ export class gameController extends PIXI.Container {
       this.reels[reelIndex].fillWithSymbols(newReelSymbols[reelIndex]);
     }
 
+    this.stopDisplay.text = "STOP POSITIONS :- \n\n" + this.gameData.reelstops;
     this.showWinDetails();
   }
 
   private showWinDetails() {
     const winLines = this.gameData.winningLines;
     const totalWin = this.gameData.totalWinAmount;
-    console.log("Winnings  ::::    ", winLines);
+    this.winDisplay.scale.set(1);
+
     let winData = totalWin
       ? "total Win : " + this.gameData.totalWinAmount
       : "GOOD LUCK !!";
@@ -80,11 +100,16 @@ export class gameController extends PIXI.Container {
         winLines[i].symbol +
         " x" +
         winLines[i].count +
-        " ," +
+        ", " +
         winLines[i].payout;
     }
 
     this.winDisplay.text = winData;
+    if (this.winDisplay.height > this.winDisplayMaxHeight) {
+      this.winDisplay.scale.set(
+        this.winDisplayMaxHeight / this.winDisplay.height
+      );
+    }
   }
 
   private initReels() {

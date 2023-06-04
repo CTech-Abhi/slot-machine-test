@@ -223,13 +223,12 @@ export class Model {
     return this.reelset;
   }
 
-  get reelStopPositions() {
+  get reelstops() {
     return this.reelStops;
   }
 
   set reelstops(stops: number[]) {
     this.reelStops = stops;
-    console.log("New Reel Stops  ::::    ", stops);
   }
 
   get stopSymbols(): string[][] {
