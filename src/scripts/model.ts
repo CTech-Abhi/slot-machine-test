@@ -1,3 +1,9 @@
+export interface IWinline {
+  index: number;
+  count: number;
+  symbol: string;
+}
+
 export class Model {
   private static instance: Model;
   private reelset: string[][] = [
@@ -114,11 +120,47 @@ export class Model {
   ];
   private reelStops: number[] = [18, 9, 2, 0, 12];
 
+  private paylines: number[][] = [
+    [1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0],
+    [2, 2, 2, 2, 2],
+    [0, 0, 1, 2, 2],
+    [2, 2, 1, 0, 0],
+    [0, 1, 2, 1, 0],
+    [2, 1, 0, 1, 2],
+  ];
+
   /**
    * The Singleton's constructor should always be private to prevent direct
    * construction calls with the `new` operator.
    */
   private constructor() {}
+
+  get winningLines() {
+    const winlineData: IWinline[] = [];
+    const stopSymbols = this.stopSymbols;
+
+    for (let i = 0; i < this.paylines.length; i++) {
+      const line = this.paylines[i];
+      const selectedSymbol = stopSymbols[0][line[0]];
+      let traverseCount = 5;
+      for (let j = 0; j < line.length; j++) {
+        if (stopSymbols[j][line[j]] !== selectedSymbol) {
+          traverseCount = j;
+          break;
+        }
+      }
+      if (traverseCount > 2) {
+        winlineData.push({
+          index: i + 1,
+          count: traverseCount,
+          symbol: selectedSymbol,
+        });
+      }
+    }
+
+    return winlineData;
+  }
 
   get reelsetData() {
     return this.reelset;

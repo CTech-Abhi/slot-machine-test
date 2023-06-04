@@ -40,6 +40,8 @@ export class gameController extends PIXI.Container {
     for (let reelIndex = 0; reelIndex < this.reels.length; reelIndex++) {
       this.reels[reelIndex].fillWithSymbols(newReelSymbols[reelIndex]);
     }
+
+    console.log("Winnings  ::::    ", this.gameData.winningLines);
   }
 
   private initReels() {
