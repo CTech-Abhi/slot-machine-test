@@ -43,13 +43,11 @@ const engineProps = {
 };
 const engine = new Engine(engineProps);
 
-// const mainButton = PIXI.Sprite.from("images/spin_button.png");
-
 // ==============
 // === STATES ===
 // ==============
 
-window.onload = load;
+window.onload = onWondowLoad;
 window.addEventListener("resize", resize);
 resize();
 
@@ -59,21 +57,15 @@ function resize() {
 
   engine.stage.scale.x = w / engineProps.canvasW;
   engine.stage.scale.y = h / engineProps.canvasH;
-
   engine.renderer.resize(w, h);
 }
 
-function load() {
-  showIntroScreen();
+function onWondowLoad() {
+  startDemo();
   render();
 } // load
 
-/* function resizeMachine() {
-  engine.stage.width = window.innerWidth;
-  engine.stage.height = window.innerHeight;
-} */
-
-function showIntroScreen() {
+function startDemo() {
   console.log("DEMO STARTED ......");
   engine.stage.addChild(new slotCreator());
 }

@@ -20,13 +20,12 @@ export class gameController extends PIXI.Container {
   }
 
   public init() {
-    console.log("Initializing the game ...");
     this.initReels();
     this.createSpinButton();
   }
 
   private createSpinButton() {
-    const mainButton = PIXI.Sprite.from("images/spin_button.png");
+    const mainButton = PIXI.Sprite.from("spin");
     mainButton.x = 100;
     mainButton.y = 500;
     mainButton.scale.set(0.6);
@@ -115,7 +114,6 @@ export class gameController extends PIXI.Container {
   private initReels() {
     let initReels = this.gameData.stopSymbols;
     for (let i = 0; i < initReels.length; i++) {
-      console.log("Init Reel stops :::      ", initReels[i]);
       let newReel = new reel();
       newReel.fillWithSymbols(initReels[i]);
       newReel.scale.set(0.6);

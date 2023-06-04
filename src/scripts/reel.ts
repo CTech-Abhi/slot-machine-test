@@ -8,8 +8,6 @@ export class reel extends PIXI.Container {
     this.addChild(this.reelContainer);
   }
   public fillWithSymbols(symbols: string[]) {
-    //console.log("Initiating symbols :::   ", symbols);
-
     this.emptyReel();
     this.fillSymbols(symbols);
   }
@@ -23,7 +21,6 @@ export class reel extends PIXI.Container {
   }
 
   private fillSymbols(symbols: string[]) {
-    // console.log("Add New Symbols :::    ", symbols);
     for (let i = 0; i < symbols.length; i++) {
       let sprite = new PIXI.Sprite(
         PIXI.Loader.shared.resources[symbols[i]].texture

@@ -15,9 +15,11 @@ export class assetloader extends PIXI.Container {
       new TextStyle({
         fontFamily: ["Helvetica", "Arial", "sans-serif"],
         fontSize: 36,
-        fill: 0xffffff,
       })
     );
+    this.loadingProgressText.anchor.set(0.5);
+    this.loadingProgressText.x = 540;
+    this.loadingProgressText.y = 360;
     this.gameContainer.addChild(this.loadingProgressText);
     this.addChild(this.gameContainer);
   }
