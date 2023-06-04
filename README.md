@@ -35,3 +35,4 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
 * Click spin button to see next result.
 * See stop positions in the text box next to spin button.
 * If there is a win, see details in the next textbox at the right bottom of the app.
+* If you wish to check the loading progress, open dev tools network tab on the browser and set throttle to slow 3G.
