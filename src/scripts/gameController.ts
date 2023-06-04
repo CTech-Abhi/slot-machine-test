@@ -26,7 +26,7 @@ export class gameController extends PIXI.Container {
     mainButton.cursor = "pointer";
 
     mainButton.on("mousedown", () => {
-      console.log("SPIN CLICKED  !!!");
+      console.log("SPIN CLICKED  !!");
     });
   }
 

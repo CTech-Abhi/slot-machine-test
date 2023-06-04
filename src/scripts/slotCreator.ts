@@ -22,5 +22,6 @@ export class slotCreator extends PIXI.Container {
     console.log("Time to remove Progressbar to load complete ...");
     this.gameContainer.init();
     this.removeChild(this.loader);
+    this.loader.destroy();
   }
 }
