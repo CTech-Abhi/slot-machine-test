@@ -33,7 +33,7 @@ export class gameController extends PIXI.Container {
     mainButton.cursor = "pointer";
 
     this.addChild(mainButton);
-    mainButton.on("click", this.handleSpinRequest, this);
+    mainButton.on("pointerdown", this.handleSpinRequest, this);
   }
 
   private createWinText() {
