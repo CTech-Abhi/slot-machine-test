@@ -2,6 +2,7 @@ export interface IWinline {
   index: number;
   count: number;
   symbol: string;
+  payout: number;
 }
 
 export class Model {
@@ -119,6 +120,7 @@ export class Model {
     ],
   ];
   private reelStops: number[] = [18, 9, 2, 0, 12];
+  private totalWin: number = 0;
 
   private paylines: number[][] = [
     [1, 1, 1, 1, 1],
@@ -130,15 +132,67 @@ export class Model {
     [2, 1, 0, 1, 2],
   ];
 
+  private payouts: any = {
+    lv1: {
+      "3": 2,
+      "4": 5,
+      "5": 10,
+    },
+    lv2: {
+      "3": 1,
+      "4": 2,
+      "5": 5,
+    },
+    lv3: {
+      "3": 1,
+      "4": 2,
+      "5": 3,
+    },
+    lv4: {
+      "3": 1,
+      "4": 2,
+      "5": 3,
+    },
+    hv1: {
+      "3": 10,
+      "4": 20,
+      "5": 50,
+    },
+    hv2: {
+      "3": 5,
+      "4": 10,
+      "5": 20,
+    },
+    hv3: {
+      "3": 5,
+      "4": 10,
+      "5": 15,
+    },
+    hv4: {
+      "3": 5,
+      "4": 10,
+      "5": 15,
+    },
+  };
+
   /**
    * The Singleton's constructor should always be private to prevent direct
    * construction calls with the `new` operator.
    */
   private constructor() {}
 
+  get totalWinAmount() {
+    return this.totalWin;
+  }
+
+  public checkWinAmount(symbol: string, count: number) {
+    return this.payouts[symbol][count.toString()];
+  }
+
   get winningLines() {
     const winlineData: IWinline[] = [];
     const stopSymbols = this.stopSymbols;
+    this.totalWin = 0;
 
     for (let i = 0; i < this.paylines.length; i++) {
       const line = this.paylines[i];
@@ -151,10 +205,13 @@ export class Model {
         }
       }
       if (traverseCount > 2) {
+        let lineWin = this.payouts[selectedSymbol][traverseCount];
+        this.totalWin += lineWin;
         winlineData.push({
           index: i + 1,
           count: traverseCount,
           symbol: selectedSymbol,
+          payout: lineWin,
         });
       }
     }
