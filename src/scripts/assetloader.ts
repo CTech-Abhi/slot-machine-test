@@ -41,9 +41,8 @@ export class assetloader extends PIXI.Container {
     });
   }
 
-  private progressUpdate(loader: PIXI.Loader, resource: PIXI.LoaderResource) {
+  private progressUpdate(loader: PIXI.Loader) {
     this.loadingProgressText.text = "" + loader.progress.toFixed(2) + " %";
-    console.log("Loaded :::    ", resource.name);
   }
 
   protected onLoadComplete(): void {

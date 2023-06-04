@@ -25,9 +25,21 @@ export class gameController extends PIXI.Container {
     mainButton.interactive = true;
     mainButton.cursor = "pointer";
 
-    mainButton.on("mousedown", () => {
-      console.log("SPIN CLICKED  !!");
-    });
+    mainButton.on("click", this.handleSpinRequest, this);
+  }
+
+  private handleSpinRequest() {
+    let reels = this.gameData.reelsetData;
+    const newReelStops: number[] = [];
+    for (let i = 0; i < reels.length; i++) {
+      newReelStops.push(Math.floor(Math.random() * reels[i].length));
+    }
+    this.gameData.reelstops = newReelStops;
+
+    const newReelSymbols = this.gameData.stopSymbols;
+    for (let reelIndex = 0; reelIndex < this.reels.length; reelIndex++) {
+      this.reels[reelIndex].fillWithSymbols(newReelSymbols[reelIndex]);
+    }
   }
 
   private initReels() {
@@ -38,6 +50,7 @@ export class gameController extends PIXI.Container {
       newReel.fillWithSymbols(initReels[i]);
       newReel.scale.set(0.6);
       this.addChild(newReel);
+
       newReel.x = this.reelStartPosition_x + i * this.symbolSize;
       newReel.y = this.reelStartPosition_y;
       this.reels.push(newReel);

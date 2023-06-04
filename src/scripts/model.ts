@@ -128,6 +128,11 @@ export class Model {
     return this.reelStops;
   }
 
+  set reelstops(stops: number[]) {
+    this.reelStops = stops;
+    console.log("New Reel Stops  ::::    ", stops);
+  }
+
   get stopSymbols(): string[][] {
     let symbols = [];
     for (let i = 0; i < this.reelStops.length; i++) {
